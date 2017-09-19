@@ -14,8 +14,6 @@ usage:
     optional arguments:
       -h, --help  show this help message and exit
 
-
-
 todo:
 
  * check for proper twitter username format before api call
@@ -25,3 +23,10 @@ todo:
 Authors: Casey Dunham <casey.dunham@gmail.com>
 
 Version: 0.1
+
+## Email Feature:
+
+Modify `config.py` with the credentials necessary to login to your shared web host,
+and you can use this script to email you when a handle has become available.
+
+Setting this up via a cronjob is an exercise left to the reader.
