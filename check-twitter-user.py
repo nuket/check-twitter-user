@@ -22,6 +22,22 @@ import urllib2
 import json
 import sys
 
+from smtplib import SMTP
+import config
+
+def holy_cow(screen_name):
+    message = """Subject: Twitter Handle Available! @{0}
+X-Priority: 1 (Highest)
+X-MSMail-Priority: High
+Importance: High
+
+Holy cow! Twitter actually released the handle: @{0} Go get it!""".format(screen_name)
+
+    s = SMTP()
+    s.connect(config.server)
+    s.login(config.username, config.password)
+    s.sendmail(config.sender, config.receiver, message)
+
 USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1'
 URL_TEMPLATE = 'https://www.twitter.com/users/username_available?suggest=1&username=%s&full_name=&email=&suggest_on_username=true&context=front&custom=1'
 
@@ -47,6 +63,7 @@ def print_result(screen_name, msg):
     display = "[%s] %s %s\n"
     if "available" in msg:
         sys.stdout.write(display % ("+", screen_name, msg,))
+        holy_cow(screen_name)
     elif "error" in msg:
         sys.stdout.write(display % ("!", screen_name, msg))
     else:
